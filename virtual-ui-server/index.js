@@ -14,7 +14,7 @@ const app = express();
 dns.setServers(["1.1.1.1","8.8.8.8"]);
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://localhost:5174"],
+    origin: process.env.FRONTEND_URL?.split(",") || ["http://localhost:5173", "http://localhost:5174", "https://virtual-ui-git-main-deepukr8412s-projects.vercel.app"],
     credentials: true,
   })
 );
@@ -33,7 +33,7 @@ app.use("/api/payment" , paymentRouter)
 
 import { autoSyncLibraryComponents } from "./utils/autoSync.js";
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, async () => {
   console.log(`✅ Server running on port ${PORT}`);
