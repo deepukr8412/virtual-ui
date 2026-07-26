@@ -10,7 +10,7 @@ import User from "../models/user.model.js";
  */
 export async function autoSyncLibraryComponents() {
   try {
-    const libPath = path.join(process.cwd(), "../virtual-ui-lib/src/index.js");
+    const libPath = path.join(process.cwd(), "virtual-ui/virtual-ui-lib/src/index.js");
 
     if (!fs.existsSync(libPath)) {
       console.log("⚠️  Auto-sync skipped: library index.js not found");
@@ -73,7 +73,7 @@ export async function autoSyncLibraryComponents() {
       // Read component file
       const componentFilePath = path.join(
         process.cwd(),
-        "../virtual-ui-lib/src/components",
+        "virtual-ui/virtual-ui-lib/src/components",
         comp.path
       );
 
