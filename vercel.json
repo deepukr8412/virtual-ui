@@ -1,0 +1,12 @@
+{
+  "buildCommand": "cd virtual-ui-client && npm install && npm run build",
+  "outputDirectory": "virtual-ui-client/dist",
+  "installCommand": "cd virtual-ui-client && npm install",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
