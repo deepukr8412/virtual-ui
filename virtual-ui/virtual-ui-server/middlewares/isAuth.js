@@ -18,7 +18,7 @@ const isAuth=async (req,res,next)=>{
       next()
     } catch (error) {
         console.log(error)
-        return res.status(500).json({message:`is auth error ${error}`})
+        return res.status(401).json({message:`Unauthorized: invalid or expired token`})
     }
 }
 export default isAuth
