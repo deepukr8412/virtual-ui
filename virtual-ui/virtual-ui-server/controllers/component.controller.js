@@ -141,33 +141,24 @@ export const saveComponent = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
+    let finalName = name;
+
     // 🔴 Admin — public components mein duplicate check
     if (user.role === "admin") {
-      const existing = await Component.findOne({ name, visibility: "public" });
-
+      let existing = await Component.findOne({ name: finalName, visibility: "public" });
       if (existing) {
-        return res.status(400).json({
-          message: "Admin cannot create duplicate public component name",
-        });
+        finalName = `${finalName}_${Math.random().toString(36).substring(2, 6)}`;
       }
-    }
-
-    // 🟢 Normal user — apne khud ke components mein duplicate check
-    if (user.role !== "admin") {
-      const existing = await Component.findOne({
-        name,
-        owner: req.userId,
-      });
-
+    } else {
+      // 🟢 Normal user — apne khud ke components mein duplicate check
+      let existing = await Component.findOne({ name: finalName, owner: req.userId });
       if (existing) {
-        return res.status(400).json({
-          message: "You already have a component with this name",
-        });
+        finalName = `${finalName}_${Math.random().toString(36).substring(2, 6)}`;
       }
     }
 
     const component = await Component.create({
-      name,
+      name: finalName,
       code,
       props,
       owner: req.userId,
